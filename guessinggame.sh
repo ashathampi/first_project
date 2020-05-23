@@ -1,28 +1,24 @@
-touch myfile
-count=1
-flag=0
-while [$flag -ne 2]
-do
-    echo Guess the number of files in the repository: 
-    read response
-    flag=count_files
-done
-
-
-count_files()
+function guess()    #function to guess
 {
-    if [$response -gt $count]
-    then
-        flag=0
-        echo too high
-    elif [$response -lt $count]
-    then
-        flag=1
-        echo too low
-    else
-        flag=2
-        echo congratulations!!
-    fi
+    count=$1
+    response=$2
+    while [[ $response -ne $count ]]
+    do
+	    if [[ $response -gt $count ]]
+	    then
+		    echo "too high"
+	    else 
+		    echo "too low"
+	    fi
+    done
     
-    return flag
+    echo "Congratulations!!"
 }
+
+echo "Enter your guess: "
+read response       #user input
+
+count=$(ls -l | wc -l)
+echo $count     #actual number of files
+
+guess count response    #function call with parameters
